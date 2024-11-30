@@ -1,0 +1,29 @@
+{
+    "NavigationAgentController": {
+        "checkpoints": [
+            {
+                "steps": 59400,
+                "file_path": "results\\albert_training_1\\NavigationAgentController\\NavigationAgentController-59400.onnx",
+                "reward": 3.8496416009162084,
+                "creation_time": 1732997117.5760932,
+                "auxillary_file_paths": [
+                    "results\\albert_training_1\\NavigationAgentController\\NavigationAgentController-59400.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 59400,
+            "file_path": "results\\albert_training_1\\NavigationAgentController.onnx",
+            "reward": 3.8496416009162084,
+            "creation_time": 1732997117.5760932,
+            "auxillary_file_paths": [
+                "results\\albert_training_1\\NavigationAgentController\\NavigationAgentController-59400.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.1.0",
+        "torch_version": "2.5.0+cu124"
+    }
+}
