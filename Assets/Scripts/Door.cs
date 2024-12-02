@@ -68,8 +68,8 @@ public class Door : MonoBehaviour, IResettable
         Debug.Log("OpenDoor chamada."); // Log para verificar a execução
         if (!portaAberta)
         {
-            MoverPara(posicaoAberta);
             portaAberta = true;
+            MoverPara(posicaoAberta);
 
             // Toca o som de abrir
             if (somAbrirPorta != null)
@@ -85,8 +85,8 @@ public class Door : MonoBehaviour, IResettable
         Debug.Log("CloseDoor chamada."); // Log para verificar a execução
         if (portaAberta)
         {
-            MoverPara(posicaoFechada);
             portaAberta = false;
+            MoverPara(posicaoFechada);
 
             // Toca o som de fechar
             if (somFecharPorta != null)

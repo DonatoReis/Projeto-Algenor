@@ -14,7 +14,7 @@ public class AgentRewardSystem : MonoBehaviour
     public float penalizacaoPorTempo = 0.05f;
 
     [Header("Configurações de Penalização por Pulos")]
-    public float jumpPenalty = -0.1f; // Penalização por pulo
+    public float jumpPenalty = -2f; // Penalização por pulo
     public float jumpPenaltyInterval = 1f; // Intervalo para aplicar a penalização
 
     [Header("Recompensa por Escapar da Sala")]
@@ -145,7 +145,7 @@ public class AgentRewardSystem : MonoBehaviour
         timeSinceLastPenalty += Time.deltaTime;
         if (timeSinceLastPenalty >= 1f)
         {
-            agentController.AddReward(-penalizacaoPorTempo);
+            agentController.AddReward(-Mathf.Abs(penalizacaoPorTempo));
             timeSinceLastPenalty = 0f;
         }
 

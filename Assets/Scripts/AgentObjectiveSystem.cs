@@ -107,6 +107,7 @@ public class AgentObjectiveSystem : MonoBehaviour
             UpdateUI();
             InitializeGoals();
             ResetRoomObjects();
+            currentRoom.door.CloseDoor();
             timeResetEnabled = true; // Habilita o reset por tempo para a nova sala
         }
     }
@@ -123,26 +124,38 @@ public class AgentObjectiveSystem : MonoBehaviour
             {
                 foreach (Transform child in currentRoom.GoalsParent)
                 {
-                    if (child.CompareTag("Collectible"))
+                    if (child.CompareTag("Collectible") || child.CompareTag("Goal"))
                     {
                         currentRoom.allGoals.Add(child.gameObject);
-                        if (currentRoom.specificGoal == null)
+                    }
+                }
+            }
+
+            // Desativar objetivos de outras salas
+            foreach (var room in rooms)
+            {
+                if (room != currentRoom)
+                {
+                    foreach (var goal in room.allGoals)
+                    {
+                        if (goal != null)
                         {
-                            currentRoom.specificGoal = child.gameObject; // Atribui o primeiro "Collectible" como specificGoal se não estiver definido
-                            Debug.LogWarning($"specificGoal não estava definido. Atribuindo '{child.gameObject.name}' como specificGoal.");
+                            goal.SetActive(false);
                         }
                     }
                 }
             }
 
-            if (currentRoom.specificGoal == null && currentRoom.allGoals.Count > 0)
+            // Ativar objetivos da sala atual
+            foreach (var goal in currentRoom.allGoals)
             {
-                currentRoom.specificGoal = currentRoom.allGoals[0];
-                Debug.LogWarning($"specificGoal ainda não está definido. Atribuindo '{currentRoom.allGoals[0].name}' como specificGoal.");
+                if (goal != null)
+                {
+                    goal.SetActive(true);
+                }
             }
         }
     }
-
 
     private void ResetTimer()
     {

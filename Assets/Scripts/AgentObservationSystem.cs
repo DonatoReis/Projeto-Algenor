@@ -29,6 +29,7 @@ public class AgentObservationSystem : MonoBehaviour
         objectiveSystem = controller.objectiveSystem;
 
         observationHistory = new Queue<ObservationData>();
+        door = agentController.objectiveSystem.GetCurrentRoom().door;
     }
 
     public void ResetObservations()
@@ -141,20 +142,21 @@ public class AgentObservationSystem : MonoBehaviour
             sensor.AddObservation(hasHit ? hit.distance / rayLength : 1.0f);
 
             // Tipo de objeto (one-hot encoding)
-            float[] objectType = new float[4]; // Supondo 4 tipos de objetos detectáveis
+            float[] objectType = new float[5]; // Supondo 4 tipos de objetos detectáveis
             if (hasHit)
             {
+                //Debug.Log($"Raycast hit: {hit.collider.gameObject.name} on layer {LayerMask.LayerToName(hit.collider.gameObject.layer)}");
                 int layerIndex = hit.collider.gameObject.layer;
-                if (layerIndex == LayerMask.NameToLayer("Ground"))
+                if (layerIndex == LayerMask.NameToLayer("groudLayer"))
                     objectType[0] = 1.0f;
-                else if (layerIndex == LayerMask.NameToLayer("Wall"))
+                else if (layerIndex == LayerMask.NameToLayer("wallLayer"))
                     objectType[1] = 1.0f;
-                else if (layerIndex == LayerMask.NameToLayer("Obstacle"))
+                else if (layerIndex == LayerMask.NameToLayer("obstacleLayer"))
                     objectType[2] = 1.0f;
                 else if (layerIndex == LayerMask.NameToLayer("Platform"))
                     objectType[3] = 1.0f;
-                else if (layerIndex == LayerMask.NameToLayer("Collectible"))
-                    objectType[3] = 1.0f;
+                else if (layerIndex == LayerMask.NameToLayer("Door"))
+                    objectType[4] = 1.0f;
             }
             // Adiciona o tipo de objeto
             foreach (var val in objectType)
